@@ -95,3 +95,35 @@ main {
 .highlight-color {
     background-color: #8838D9;
 }
+
+.input {
+    color: white;
+    padding: 0.5rem;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    transition: 200ms;
+}
+
+.input:focus {
+    outline-color: #8838D9;
+    outline-style: solid;
+}
+
+.button {
+    color: white;
+    background-color: #6f2b9c;
+    border: none;
+    border-radius: 5px;
+    transition: 200ms;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #9a61ce;
+    box-shadow: #9a61ce 0px 0px 1px;
+}
+
+.button:active {
+    background-color: #6f2b9c;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="index.js"></script>
+    <script src="reserveer.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <div class="flex-container nav-container">
+            <div class="flex-container">
+                <a class="nav-btn" href="#">Menu</a>
+                <p>Temperatuur: <span id="weather"></span><span>°C</span></p>
+            </div>
+            <div class="flex-container">
+                <a class="nav-btn" href="#">Home</a>
+                <a class="nav-btn" href="#">About</a>
+                <a class="nav-btn" href="#">Contact</a>
+            </div>
+    
+        </div>
+    </nav>
+
+    <main>
+        <span>Price per ticket is €15</span>
+        <input id="amount" class="input" type="text" name="ticket ammount" id="tecket" placeholder="Ticket amount">
+        <button class="button" onclick="calcTotal()">Confirm order</button>
+        <span id="total"></span>
+    </main>
+    
+</body>
+</html>
