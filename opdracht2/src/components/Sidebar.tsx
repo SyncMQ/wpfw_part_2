@@ -17,8 +17,6 @@ import {
 	useNavigate
 } from 'react-router-dom';
 
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
-
 export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 	{ isMenuOpen: boolean, setMenuOpen(value: boolean): void }) {
 	const navigate = useNavigate();
@@ -36,14 +34,13 @@ export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 				setMenuOpen(open);
 			}, [setMenuOpen]);
 
-	const list = (anchor: Anchor) => (
+	const list = () => (
 		<Box
 			sx={{
 				width: 250
 			}}
 			role="presentation"
-			// onClick={toggleDrawer(anchor, false)}
-			onKeyDown={toggleDrawer(anchor, false)}
+			onKeyDown={toggleDrawer(false)}
 		>
 			<List>
 				<ListItem disablePadding>
@@ -81,7 +78,7 @@ export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 			open={openSidebarMenu}
 			onClose={toggleDrawer(false)}
 		>
-			{list('left')}
+			{list()}
 		</Drawer>
 	);
 }
