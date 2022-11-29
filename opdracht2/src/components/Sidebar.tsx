@@ -14,32 +14,32 @@ import {
 } from 'react';
 import t from 'grapeseed/src/config/lang/language';
 import {
-	useNavigate 
+	useNavigate
 } from 'react-router-dom';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
-	{ isMenuOpen: boolean, setMenuOpen(value:boolean): void }) {
+	{ isMenuOpen: boolean, setMenuOpen(value: boolean): void }) {
 	const navigate = useNavigate();
 	const toggleDrawer =
-        useCallback((open:boolean) =>
-        	(event: React.KeyboardEvent | React.MouseEvent) => {
-        		if (
-        			event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-        		) {
-        			return;
-        		}
+		useCallback((open: boolean) =>
+			(event: React.KeyboardEvent | React.MouseEvent) => {
+				if (
+					event.type === 'keydown' &&
+					((event as React.KeyboardEvent).key === 'Tab' ||
+						(event as React.KeyboardEvent).key === 'Shift')
+				) {
+					return;
+				}
 
-        		setMenuOpen(open);
-        	},[setMenuOpen]);
+				setMenuOpen(open);
+			}, [setMenuOpen]);
 
 	const list = (anchor: Anchor) => (
 		<Box
 			sx={{
-				width:  250 
+				width: 250
 			}}
 			role="presentation"
 			// onClick={toggleDrawer(anchor, false)}
@@ -49,7 +49,8 @@ export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 				<ListItem disablePadding>
 					<ListItemButton onClick={() => {
 						navigate('/customers');
-						setMenuOpen(false);}}>
+						setMenuOpen(false);
+					}}>
 						<ListItemIcon>
 							<InboxIcon />
 						</ListItemIcon>
