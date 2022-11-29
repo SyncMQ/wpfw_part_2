@@ -1,5 +1,7 @@
-import { Card, CardActionArea, CardContent, CardMedia, Chip, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Card, CardActionArea, CardContent, CardMedia, Chip, Container, Grid, IconButton, Typography } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useNavigate } from 'react-router-dom';
 type card = {
 	image: string,
 	date: string,
@@ -7,6 +9,7 @@ type card = {
 	description: string,
 	tags: string[]
 }
+
 const cards: card[] = [{
 	image: 'https://www.walibi.nl/sites/default/files/widget/text_image/2022-08/Header_KV_Website_5000x3536px_LR.jpg',
 	date: 'October 2022',
@@ -30,21 +33,65 @@ const cards: card[] = [{
 }
 ];
 
+const buttons = [
+	{
+		title:'Over ons',
+		bg: {
+			bgcolor: 'primary.main',
+		},
+		route: '/overons',
+	},
+	{
+		title:'Reserveer',
+		bg: {
+			bgcolor: 'primary.light',
+		},
+		route: '/reserveer',
+	},
+	{
+		title:'Contact',
+		bg: {
+			bgcolor: 'primary.main',
+		},
+		route: '/contact',
+	},
+];
 function Home() {
+	const navigate = useNavigate();
 	return (
-		<Container>
+		<Container component={'main'}>
 			<Typography variant='h3' align='center' sx={{
 				mt: 2,
 				mb:4
 			}}>
 				Welkom naar Pretpark NL!
 			</Typography>
+			<Grid container spacing={4}>
+				{buttons.map((button) => {
+					return (
+						<Grid key={button.title} item xs={4}>
+							<Card sx={{ maxWidth: 450, maxHeight: 100, mb: 4, ...button.bg }} onClick={() => { navigate(button.route); }}>
+								<CardActionArea>
+									<CardContent sx={{display:'flex', justifyContent:'space-between'}}>
+										<Typography variant='h6'>
+											{button.title}
+										</Typography>
+										<IconButton sx={{ bgcolor: '#00000025' }}>
+											<ArrowForwardIosIcon fontSize='small' />
+										</IconButton>
+									</CardContent>
+								</CardActionArea>
 
+							</Card>
+						</Grid>
+					);
+				})}
+			</Grid>
 			<Grid container spacing={4}>
 				{cards.map((card) => {
 					return (
 						<Grid key={card.title } item xs={4}>
-							<Card sx={{ maxWidth: 450 }} onClick={() => { console.log('click'); }}>
+							<Card component={'article'} sx={{ maxWidth: 450 }} onClick={() => { console.log('click'); }}>
 								<CardActionArea>
 									<CardMedia
 										component="img"
@@ -53,16 +100,16 @@ function Home() {
 										alt={card.title}
 									/>
 									<CardContent>
-										<Typography gutterBottom variant="subtitle2" component="div">
+										<Typography gutterBottom variant="subtitle2" color="text.secondary" component="div">
 											{card.date}
 										</Typography>
 										<Typography gutterBottom variant="h5" component="div">
 											{card.title}
 										</Typography>
-										<Typography sx={{ mb: 2 }} variant="body1" color="text.secondary">
+										<Typography sx={{ mb: 2 }} variant="body1">
 											{card.description}
 										</Typography>
-										{card.tags.map((tag) => <Chip color='primary' sx={{ mr: 1 }} key={tag} label={tag} />)}
+										{card.tags.map((tag) => <Chip sx={{ mr: 1, bgcolor:'primary.dark' }} key={tag} label={tag} />)}
 									</CardContent>
 								</CardActionArea>
 								

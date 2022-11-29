@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+	useCallback,
+} from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -7,18 +10,31 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import {
-	useCallback,
-} from 'react';
-import t from 'grapeseed/src/config/lang/language';
+import InfoIcon from '@mui/icons-material/Info';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import HomeIcon from '@mui/icons-material/Home';
 import {
 	useNavigate
 } from 'react-router-dom';
+import { Chip, IconButton, Tooltip, Typography } from '@mui/material';
+
+const routes = [
+	{
+		title: 'Home',
+		route: '/',
+		icon: <HomeIcon />
+	},
+	{
+		title: 'About',
+		route: '/about',
+		icon: <InfoIcon />
+	}
+	
+];
 
 export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 	{ isMenuOpen: boolean, setMenuOpen(value: boolean): void }) {
+	const [temperatuur, setTemperatuur] = React.useState(5);
 	const navigate = useNavigate();
 	const toggleDrawer =
 		useCallback((open: boolean) =>
@@ -33,41 +49,58 @@ export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 
 				setMenuOpen(open);
 			}, [setMenuOpen]);
+	const closeDrawer = React.useCallback((newLocation?: string) => {
+		setMenuOpen(false);
+		newLocation ? navigate(newLocation) : null;
+	}, []);
+	
+	React.useEffect(() => {
+		fetch('https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&hourly=temperature_2m')
+			.then(response => {
+				response.json().then(data => {
+					setTemperatuur(data.hourly.temperature_2m[0]);
+				});
+			});	
+	},[]);
 
 	const list = () => (
 		<Box
 			sx={{
-				width: 250
+				width: 250,
 			}}
 			role="presentation"
 			onKeyDown={toggleDrawer(false)}
 		>
 			<List>
-				<ListItem disablePadding>
-					<ListItemButton onClick={() => {
-						navigate('/customers');
-						setMenuOpen(false);
-					}}>
-						<ListItemIcon>
-							<InboxIcon />
-						</ListItemIcon>
-						<ListItemText primary={t('Customers')} />
-					</ListItemButton>
+				<ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
+					<Typography variant="h5">
+						Menu
+					</Typography>
+					<Tooltip title='Menu sluiten'>
+						<IconButton onClick={() => closeDrawer()}>
+							<ArrowBackIosNewIcon />
+						</IconButton>
+					</Tooltip>
+					
 				</ListItem>
-			</List>
-			<Divider />
-			<List>
-				{['All mail', 'Trash', 'Spam'].map((text, index) => (
-					<ListItem key={text}
-						disablePadding>
-						<ListItemButton>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
+				<ListItem>
+					<Typography variant='body2'>
+						Temperatuur: <Chip size='small' label={`${temperatuur}°C`} sx={{bgcolor:'primary.light'}}/>
+					</Typography>
+				</ListItem>
+				<Divider />
+				{routes.map((route) => {
+					return (
+						<ListItem disablePadding key={route.title}>
+							<ListItemButton onClick={() => closeDrawer(route.route)}>
+								<ListItemIcon>
+									{route.icon}
+								</ListItemIcon>
+								<ListItemText primary={route.title} />
+							</ListItemButton>
+						</ListItem>);
+				})}
+				
 			</List>
 		</Box>
 	);
