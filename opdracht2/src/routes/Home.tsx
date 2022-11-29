@@ -2,36 +2,7 @@ import React from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Chip, Container, Grid, IconButton, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useNavigate } from 'react-router-dom';
-type card = {
-	image: string,
-	date: string,
-	title: string,
-	description: string,
-	tags: string[]
-}
-
-const cards: card[] = [{
-	image: 'https://www.walibi.nl/sites/default/files/widget/text_image/2022-08/Header_KV_Website_5000x3536px_LR.jpg',
-	date: 'October 2022',
-	title: 'Spookhuis',
-	description: 'Aanstaande vrijdag kom Halloween vieren samen in ons pretpark!',
-	tags : ['Spannend', 'Seizoen']
-},
-{
-	image: 'https://www.walibi.nl/sites/default/files/styles/1280x711/public/content/editorial/2020-02/fastlane_0.jpg?itok=BrMeK8Ek',
-	date: 'October 2022',
-	title: 'Snelste Actbaan in Nederland',
-	description: 'Beschikbaar tot 31 october. kom langs en probeer on nieuwe achtbaan!',
-	tags:['Snel','Achtbaan','Super leuk']
-},
-{
-	image: 'https://cdn-cms.bookingexperts.nl/media/851/31/preprocessed.jpg',
-	date: 'October 2022',
-	title: 'Halloween eten',
-	description: 'Deze maand heeft ons pretpartk een speciale menu om je smaakpapillen te afschrikken!',
-	tags:['Special Menu','Eten']
-}
-];
+import { cards } from './events';
 
 const buttons = [
 	{
@@ -39,7 +10,7 @@ const buttons = [
 		bg: {
 			bgcolor: 'primary.main',
 		},
-		route: '/overons',
+		route: '/about',
 	},
 	{
 		title:'Reserveer',
@@ -91,7 +62,7 @@ function Home() {
 				{cards.map((card) => {
 					return (
 						<Grid key={card.title } item xs={4}>
-							<Card component={'article'} sx={{ maxWidth: 450 }} onClick={() => { console.log('click'); }}>
+							<Card component={'article'} sx={{ maxWidth: 450 }} onClick={() => { navigate(`/reserveer/${card.title}`); }}>
 								<CardActionArea>
 									<CardMedia
 										component="img"

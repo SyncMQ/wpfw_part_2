@@ -13,6 +13,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InfoIcon from '@mui/icons-material/Info';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import HomeIcon from '@mui/icons-material/Home';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import {
 	useNavigate
 } from 'react-router-dom';
@@ -25,10 +27,20 @@ const routes = [
 		icon: <HomeIcon />
 	},
 	{
-		title: 'About',
+		title: 'Over ons',
 		route: '/about',
 		icon: <InfoIcon />
-	}
+	},
+	{
+		title: 'Contact',
+		route: '/contact',
+		icon: <ConnectWithoutContactIcon/>
+	},
+	{
+		title: 'Reserveer',
+		route: '/reserveer',
+		icon: <BookmarkBorderIcon />
+	},
 	
 ];
 
