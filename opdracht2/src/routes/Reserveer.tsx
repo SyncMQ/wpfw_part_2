@@ -1,6 +1,6 @@
 import { Autocomplete, Box, Button, Container, Grid, Paper, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material';
 import React from 'react';
-import {Event, events} from './events';
+import { Event, events } from './events';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useParams } from 'react-router-dom';
 const steps = [
@@ -11,25 +11,25 @@ function Reserveer() {
 	const [totalPrice, setTotalPrice] = React.useState(60);
 	const [currentStep, setCurrentStep] = React.useState(0);
 	const { id } = useParams();
-	const [currentListValue, setCurrentListValue] = React.useState<Event | undefined | string>('');
+	const [currentListValue, setCurrentListValue] = React.useState<Event | undefined | any>('');
 	React.useEffect(() => {
 		const currentEvent: Event | undefined = events.find((event) => event.label === id);
-        
-		if (currentEvent){
+
+		if (currentEvent) {
 			setCurrentListValue(currentEvent);
 			setTotalPrice(currentEvent.price);
 		}
 	}, []);
-	const onchange = React.useCallback((event: any, value:Event) => {
+	const onchange = React.useCallback((event: any, value: Event) => {
 		if (!value) {
-			setCurrentListValue(''); 
+			setCurrentListValue('');
 			setTotalPrice(0);
 			return;
 		}
-		setCurrentListValue(value); 
+		setCurrentListValue(value);
 		setTotalPrice(value.price);
 	}, [setCurrentListValue]);
-    
+
 	return (
 		<Container sx={{ mt: 2 }}>
 			<Typography component='h1' variant={'h3'} align='center' sx={{ mb: 2 }}>
