@@ -18,9 +18,7 @@ function Home() {
 	const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement> & React.FormEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		console.log({
-			data
-		});
+		console.log(data);
 	},[]);
 	return (
 		<Container sx={{pt:2}} component='main'>
@@ -55,7 +53,7 @@ function Home() {
 										}}
 										autoFocus
 
-										renderInput={(params) => <TextField {...params} variant={'standard'} fullWidth name='date' />}
+										renderInput={(params) => <TextField {...params} variant={'standard'} fullWidth name='datum' />}
 									/>
 								</LocalizationProvider>
 							</Grid>
