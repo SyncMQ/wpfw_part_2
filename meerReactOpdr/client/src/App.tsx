@@ -12,7 +12,6 @@ function App() {
 	});
 	return (
 		<ThemeProvider theme={theme}>
-
 			<Paper sx={{
 				minHeight: '100vh',
 				borderRadius: 0
