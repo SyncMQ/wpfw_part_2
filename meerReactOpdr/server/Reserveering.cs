@@ -18,6 +18,6 @@ public class Reserveering
 
 public class Reserveering_Api{
     public string email { get; set; }
-    public int aantalMensen { get; set; }
-    public DateTime datum { get; set; }
+    public int? aantalMensen { get; set; }
+    public string datum { get; set; }
 }
