@@ -1,6 +1,6 @@
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, AlertColor, Button, Card, CardContent, Divider, Grid, Grow, Snackbar, SnackbarProps, TextField, Typography } from '@mui/material';
+import React, { useCallback, useState } from 'react';
+import { Alert, AlertColor, Button, Card, CardContent, Divider, Grid, Grow, Snackbar, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -136,7 +136,7 @@ function PopUp({ message, severity, open, setOpen }: { message: string, severity
 			return;
 		}
 		setOpen(false);
-	},[]);
+	},[setOpen]);
 	return (
 		<Snackbar
 			anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
