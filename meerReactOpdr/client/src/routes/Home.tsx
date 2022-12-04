@@ -1,5 +1,5 @@
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, AlertColor, Button, Card, CardContent, Divider, Grid, Grow, Snackbar, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -10,13 +10,13 @@ function Home() {
 	const [showSnackBar,setShowSnackbar] = useState(false);
 	const [snackbarProps, setSnackbarProps] = useState<Element | any>(null);
 	const [currentAvailableSpots, setCurrentAvailableSpots] = useState<number | null>(null);
-	// useEffect(() => {
-	// 	fetch('/api/reserveering').then((res) => {
-	// 		res.json().then((e) => {
-	// 			console.log(e);
-	// 		});
-	// 	});
-	// }, []);
+	useEffect(() => {
+		fetch('/api/reserveering').then((res) => {
+			res.json().then((e) => {
+				console.log(e);
+			});
+		});
+	}, []);
 
 	const onDateChange = useCallback(async (value: string) => {
 		const date = new Date(value);
@@ -56,11 +56,11 @@ function Home() {
 				setShowSnackbar(true);
 				return;
 			}
-			console.log('good');
 			setSnackbarProps({
 				message:`Reserveering is gelukt voor! email gestuurd naar: ${payload.email}`,
 				severity: 'success'
 			});
+			setCurrentAvailableSpots((current) => current? current -= payload.aantalMensen : null);
 			setShowSnackbar(true);
 		}).catch(() => {
 			console.log('bad');

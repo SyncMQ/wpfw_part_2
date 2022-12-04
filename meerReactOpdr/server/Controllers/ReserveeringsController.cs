@@ -48,6 +48,10 @@ public class ReserveringsController : ControllerBase
          {
              return BadRequest("Je kan geen reserveering maken in het verleden.");
          }
+         if (reserveering.email == "" | reserveering.email is null)
+         {
+             return BadRequest("Email is een verplichte veld!");
+         }
 
          var reserveeringenOpDeDatum = _reserveeringen.Where(r => r.Datum.ToString("MM/d/yyyy") == reserveering.datum).Count();
 
@@ -92,5 +96,11 @@ public class ReserveringsController : ControllerBase
         catch{
             return Ok(ticketsBeschikbaar);
         }
+    }
+    [HttpGet("reseedTest")]
+    public ActionResult<int> reseedTest(){
+        System.Console.WriteLine("reseeding...");
+        _reserveeringen = new List<Reserveering>();
+        return Ok();
     }
 }

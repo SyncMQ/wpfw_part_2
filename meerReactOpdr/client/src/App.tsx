@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './routes/Home';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme, Paper } from '@mui/material';
+import Contact from './routes/Contact';
+import Footer from './components/Footer';
 
 function App() {
 	const theme = createTheme({
@@ -18,7 +20,9 @@ function App() {
 			}}>
 				<Routes>
 					<Route path='/' element={<Home/>} />
+					<Route path='/contact' element={<Contact/>} />
 				</Routes>
+				<Footer />
 			</Paper>
 
 		</ThemeProvider>
