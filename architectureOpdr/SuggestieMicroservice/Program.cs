@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AttractieParkContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("AttractieParkContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AttractieParkContext")));
 
 
 // Add services to the container.

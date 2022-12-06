@@ -21,7 +21,6 @@ function Home() {
 	const onDateChange = useCallback(async (value: string) => {
 		const date = new Date(value);
 		const apiSafeDate = `${date.getMonth() +1}/${date.getDate()}/${date.getFullYear()}`;
-		console.log(apiSafeDate);
 		setDateValue(value);
 		const res = await fetch('/api/reserveering/datum',{
 			headers: {

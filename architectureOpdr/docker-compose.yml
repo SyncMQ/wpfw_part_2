@@ -1,0 +1,45 @@
+services:
+  client:
+    container_name: Client
+    build: ./client
+    env_file:
+      - ./client/.env
+    ports:
+      - "80:5173"
+    links:
+      - "suggestie:Suggestie_Service"
+      - "attractie:Attractie_Service"
+
+  db:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    ports:
+      - "1433:1433"
+    environment:
+      - MSSQL_SA_PASSWORD=r00t.R00T
+      - ACCEPT_EULA=Y
+    volumes:
+      - db-data:/var/opt/mssql/
+
+  suggestie:
+    container_name: Suggestie_Service
+    build: ./SuggestieMicroservice
+    ports:
+      - "8080:80"
+    links:
+      - "db:db"
+
+  attractie:
+    container_name: Attractie_Service
+    build: ./AttractieMicroservice
+    ports:
+      - "8081:80"
+    links:
+      - "db:db"
+    depends_on:
+      - db
+      
+volumes:
+  db-data:
+

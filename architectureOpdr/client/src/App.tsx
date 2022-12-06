@@ -5,9 +5,6 @@ import VoegAttractieToe from './components/attracties/VoegAttractieToe';
 import Home from './components/Home';
 import NavMenu from './components/NavMenu';
 import Suggestie from './components/suggesties/Suggestie';
-
-
-
 function App() {
 
 	return (
