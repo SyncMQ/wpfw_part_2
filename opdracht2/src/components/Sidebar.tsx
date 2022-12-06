@@ -15,9 +15,6 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import HomeIcon from '@mui/icons-material/Home';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
-import {
-	useNavigate
-} from 'react-router-dom';
 import { Chip, IconButton, Tooltip, Typography } from '@mui/material';
 
 const routes = [
@@ -44,10 +41,9 @@ const routes = [
 	
 ];
 
-export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
-	{ isMenuOpen: boolean, setMenuOpen(value: boolean): void }) {
+export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen, changePage }:
+	{ isMenuOpen: boolean, setMenuOpen(value: boolean): void, changePage: (location:string)=>void}) {
 	const [temperatuur, setTemperatuur] = React.useState(5);
-	const navigate = useNavigate();
 	const toggleDrawer =
 		useCallback((open: boolean) =>
 			(event: React.KeyboardEvent | React.MouseEvent) => {
@@ -63,7 +59,7 @@ export default function Sidebar({ isMenuOpen: openSidebarMenu, setMenuOpen }:
 			}, [setMenuOpen]);
 	const closeDrawer = React.useCallback((newLocation?: string) => {
 		setMenuOpen(false);
-		newLocation ? navigate(newLocation) : null;
+		newLocation ? changePage(newLocation) : null;
 	}, []);
 	
 	React.useEffect(() => {

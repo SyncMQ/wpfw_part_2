@@ -11,11 +11,9 @@ import Sidebar from './Sidebar';
 import {Tooltip
 } from '@mui/material';
 import Searchbar from './Searchbar';
-import { useNavigate } from 'react-router-dom';
 
-export default function Topbar() {
+export default function Topbar({changePage}: {changePage: (location:string)=>void}) {
 	const [isMenuOpen, setMenuOpen] = React.useState(false);
-	const navigate = useNavigate();
 	const openSidebarMenu = React.useCallback(() => {
 		setMenuOpen(true);
 	}, []);
@@ -23,7 +21,9 @@ export default function Topbar() {
 	return (
 		<>
 			<Sidebar isMenuOpen={isMenuOpen}
-				setMenuOpen={setMenuOpen} />
+				setMenuOpen={setMenuOpen}
+				changePage={changePage}
+			/>
 			<Box sx={{
 				flexGrow: 1
 			}}>
@@ -46,7 +46,7 @@ export default function Topbar() {
 							</IconButton>
 						</Tooltip>
 						<Typography variant="h6"
-							onClick={()=>{navigate('/');}}
+							onClick={() => { changePage('/');}}
 							sx={{
 								cursor:'pointer',
 								flexGrow: 1
@@ -54,7 +54,7 @@ export default function Topbar() {
 							Pretpark
 						</Typography>
 						<Searchbar placeholderText={'Search...'} setSearchTermValue={ (val: string): void =>{
-							throw new Error('Function not implemented.');
+							console.log('Function not implemented.');
 						} } searchTermValue={''}/>
 						<Tooltip title="User">
 							<IconButton size='large' sx={{
